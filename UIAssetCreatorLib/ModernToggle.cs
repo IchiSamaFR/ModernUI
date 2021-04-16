@@ -30,6 +30,8 @@ namespace UIAssetsCreator.Assets
             get { return dotSize; }
             set
             {
+                if (dotSize == value)
+                    return;
                 dotSize = value;
                 Refresh();
 
@@ -40,6 +42,8 @@ namespace UIAssetsCreator.Assets
             get { return dotColor; }
             set
             {
+                if (dotColor == value)
+                    return;
                 dotColor = value;
                 Refresh();
             }
@@ -49,6 +53,8 @@ namespace UIAssetsCreator.Assets
             get { return dotActiveColor; }
             set
             {
+                if (dotActiveColor == value)
+                    return;
                 dotActiveColor = value;
                 Refresh();
             }
@@ -58,6 +64,8 @@ namespace UIAssetsCreator.Assets
             get { return fillActiveColor; }
             set
             {
+                if (fillActiveColor == value)
+                    return;
                 fillActiveColor = value;
                 Refresh();
             }
@@ -67,6 +75,8 @@ namespace UIAssetsCreator.Assets
             get { return titlePadding; }
             set
             {
+                if (titlePadding == value)
+                    return;
                 titlePadding = value;
                 Refresh();
             }
@@ -76,6 +86,8 @@ namespace UIAssetsCreator.Assets
             get { return titleHeight; }
             set
             {
+                if (titleHeight == value)
+                    return;
                 titleHeight = value;
                 Refresh();
             }
@@ -85,6 +97,8 @@ namespace UIAssetsCreator.Assets
             get { return isChecked; }
             set
             {
+                if (isChecked == value)
+                    return;
                 isChecked = value;
                 Refresh();
             }

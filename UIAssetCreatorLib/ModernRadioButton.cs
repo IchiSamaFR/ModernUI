@@ -17,7 +17,7 @@ namespace UIAssetsCreator.Assets
     {
         private Font fnt = new Font("Sans Serif", 10);
         private int titleHeight = 30;
-        private int dotSize = 12;
+        private int dotSize = 10;
         private Color dotColor;
         private Color dotActiveColor;
         private Color fillColor;
@@ -27,12 +27,16 @@ namespace UIAssetsCreator.Assets
         private Size mainSize;
         private bool multipleSelection = false;
         private string selectionGroup = "";
+        private string toRefresh = "";
+        private bool maximizeSize = false;
 
         public int DotSize
         {
             get { return dotSize; }
             set
             {
+                if (dotSize == value)
+                    return;
                 dotSize = value;
                 Refresh();
 
@@ -43,6 +47,8 @@ namespace UIAssetsCreator.Assets
             get { return dotColor; }
             set
             {
+                if (dotColor == value)
+                    return;
                 dotColor = value;
                 Refresh();
             }
@@ -52,6 +58,8 @@ namespace UIAssetsCreator.Assets
             get { return dotActiveColor; }
             set
             {
+                if (dotActiveColor == value)
+                    return;
                 dotActiveColor = value;
                 Refresh();
             }
@@ -61,6 +69,8 @@ namespace UIAssetsCreator.Assets
             get { return fillActiveColor; }
             set
             {
+                if (fillActiveColor == value)
+                    return;
                 fillActiveColor = value;
                 Refresh();
             }
@@ -70,6 +80,8 @@ namespace UIAssetsCreator.Assets
             get { return titlePadding; }
             set
             {
+                if (titlePadding == value)
+                    return;
                 titlePadding = value;
                 Refresh();
             }
@@ -79,6 +91,8 @@ namespace UIAssetsCreator.Assets
             get { return titleHeight; }
             set
             {
+                if (titleHeight == value)
+                    return;
                 titleHeight = value;
                 Refresh();
             }
@@ -88,9 +102,11 @@ namespace UIAssetsCreator.Assets
             get { return isChecked; }
             set
             {
+                if (isChecked == value)
+                    return;
                 isChecked = value;
-                //need here
                 Refresh();
+                CheckValues();
             }
         }
         public bool MultipleSelection
@@ -98,6 +114,8 @@ namespace UIAssetsCreator.Assets
             get { return multipleSelection; }
             set
             {
+                if (multipleSelection == value)
+                    return;
                 multipleSelection = value;
                 Refresh();
             }
@@ -107,7 +125,20 @@ namespace UIAssetsCreator.Assets
             get { return selectionGroup; }
             set
             {
+                if (selectionGroup == value)
+                    return;
                 selectionGroup = value;
+                Refresh();
+            }
+        }
+        public bool MaximizeSize
+        {
+            get { return maximizeSize; }
+            set
+            {
+                if (maximizeSize == value)
+                    return;
+                maximizeSize = value;
                 Refresh();
             }
         }
@@ -125,7 +156,7 @@ namespace UIAssetsCreator.Assets
             fillActiveColor = ModernConfiguration.main_color;
             BackColor = Color.Transparent;
             fontColor = ModernConfiguration.font_color;
-            mainSize = new Size(20, 20);
+            mainSize = new Size(16, 16);
             Enabled = true;
             Text = "ModernRadioButton";
         }
@@ -135,59 +166,79 @@ namespace UIAssetsCreator.Assets
         {
             var path = new GraphicsPath();
 
-            if (isChecked)
+            if(toRefresh == "design" || toRefresh == "")
             {
-                if (Enabled && ParentEnabled)
+                if (isChecked)
                 {
-                    CreateRecObject(e, path, mainSize.Width - mainSize.Height + (mainSize.Height - dotSize) / 2, (mainSize.Height - dotSize) / 2, dotSize, dotSize, dotActiveColor);
-                    CreateRecObject(e, path, 0, 0, mainSize.Width, mainSize.Height, fillActiveColor);
+                    if (Enabled && ParentEnabled)
+                    {
+                        CreateRecObject(e, path, mainSize.Width - mainSize.Height + (mainSize.Height - dotSize) / 2, (mainSize.Height - dotSize) / 2, dotSize, dotSize, dotActiveColor);
+                        CreateRecObject(e, path, 0, 0, mainSize.Width, mainSize.Height, fillActiveColor);
+                    }
+                    else
+                    {
+                        CreateRecObject(e, path, mainSize.Width - mainSize.Height + (mainSize.Height - dotSize) / 2, (mainSize.Height - dotSize) / 2, dotSize, dotSize,
+                            Color.FromArgb(ModernConfiguration.AlphaValue, dotActiveColor.R, dotActiveColor.G, dotActiveColor.B));
+                        CreateRecObject(e, path, 0, 0, mainSize.Width, mainSize.Height,
+                            Color.FromArgb(ModernConfiguration.AlphaValue, fillActiveColor.R, fillActiveColor.G, fillActiveColor.B));
+                    }
                 }
                 else
                 {
-                    CreateRecObject(e, path, mainSize.Width - mainSize.Height + (mainSize.Height - dotSize) / 2, (mainSize.Height - dotSize) / 2, dotSize, dotSize,
-                        Color.FromArgb(ModernConfiguration.AlphaValue, dotActiveColor.R, dotActiveColor.G, dotActiveColor.B));
-                    CreateRecObject(e, path, 0, 0, mainSize.Width, mainSize.Height,
-                        Color.FromArgb(ModernConfiguration.AlphaValue, fillActiveColor.R, fillActiveColor.G, fillActiveColor.B));
-                }
-            }
-            else
-            {
-                if (Enabled && ParentEnabled)
-                {
-                    CreateRecObject(e, path, (mainSize.Height - dotSize) / 2, (mainSize.Height - dotSize) / 2, dotSize, dotSize, dotColor);
-                    CreateRecObject(e, path, 0, 0, mainSize.Width, mainSize.Height, fillColor);
-                }
-                else
-                {
-                    CreateRecObject(e, path, (mainSize.Height - dotSize) / 2, (mainSize.Height - dotSize) / 2, dotSize, dotSize,
-                        Color.FromArgb(ModernConfiguration.AlphaValue, dotColor.R, dotColor.G, dotColor.B));
-                    CreateRecObject(e, path, 0, 0, mainSize.Width, mainSize.Height,
-                        Color.FromArgb(ModernConfiguration.AlphaValue, fillColor.R, fillColor.G, fillColor.B));
+                    if (Enabled && ParentEnabled)
+                    {
+                        CreateRecObject(e, path, (mainSize.Height - dotSize) / 2, (mainSize.Height - dotSize) / 2, dotSize, dotSize, dotColor);
+                        CreateRecObject(e, path, 0, 0, mainSize.Width, mainSize.Height, fillColor);
+                    }
+                    else
+                    {
+                        CreateRecObject(e, path, (mainSize.Height - dotSize) / 2, (mainSize.Height - dotSize) / 2, dotSize, dotSize,
+                            Color.FromArgb(ModernConfiguration.AlphaValue, dotColor.R, dotColor.G, dotColor.B));
+                        CreateRecObject(e, path, 0, 0, mainSize.Width, mainSize.Height,
+                            Color.FromArgb(ModernConfiguration.AlphaValue, fillColor.R, fillColor.G, fillColor.B));
+                    }
                 }
             }
 
-            using (Brush aBrush = new SolidBrush(fontColor))
+            if(toRefresh == "text" || toRefresh == "")
             {
-                StringFormat format = new StringFormat();
-                format.Alignment = StringAlignment.Center;
+                using (Brush aBrush = new SolidBrush(fontColor))
+                {
+                    StringFormat format = new StringFormat();
+                    format.Alignment = StringAlignment.Center;
 
-                SizeF stringSizeF = e.Graphics.MeasureString(Text, TextFont);
-                Size stringSize = new Size((int)Math.Ceiling(stringSizeF.Width), (int)Math.Ceiling(stringSizeF.Height));
+                    SizeF stringSizeF = e.Graphics.MeasureString(Text, TextFont);
+                    Size stringSize = new Size((int)Math.Ceiling(stringSizeF.Width), (int)Math.Ceiling(stringSizeF.Height));
 
-                Rectangle rec = new Rectangle(titlePadding + mainSize.Width,
-                                                mainSize.Height - stringSize.Height,
-                                                stringSize.Width,
-                                                stringSize.Height);
-                e.Graphics.DrawString(Text, TextFont, aBrush, rec, format);
-                Size = new Size(rec.X + rec.Width, mainSize.Height + 1);
+                    Rectangle rec = new Rectangle(titlePadding + mainSize.Width,
+                                                    mainSize.Height - stringSize.Height,
+                                                    stringSize.Width,
+                                                    stringSize.Height);
+                    e.Graphics.DrawString(Text, TextFont, aBrush, rec, format);
+                    if (maximizeSize && rec.X + rec.Width < Parent.Width - 24)
+                    {
+                        Size = new Size(Parent.Width - 24, mainSize.Height + 1);
+                    }
+                    else
+                    {
+                        Size = new Size(rec.X + rec.Width, mainSize.Height + 1);
+                    }
+                }
             }
 
             path.Dispose();
+
+            toRefresh = "";
         }
 
         public override void OnClick(object sender, EventArgs e)
         {
             ClickResult();
+        }
+        public override void RefreshType(string type = "design")
+        {
+            toRefresh = "";
+            Refresh();
         }
 
         private void ClickResult()
@@ -210,6 +261,8 @@ namespace UIAssetsCreator.Assets
         }
         private void CheckValues()
         {
+            if (!isChecked || Parent == null || Parent.Controls.Count <= 0)
+                return;
             foreach (var item in this.Parent.Controls)
             {
                 ModernRadioButton _item;

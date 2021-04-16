@@ -18,16 +18,6 @@ namespace UIAssetsCreator.Assets
     [Designer("System.Windows.Forms.Design.ParentControlDesigner, System.Design", typeof(IDesigner))]
     public class ModernPanel : ModernDesigner
     {
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams CP = base.CreateParams;
-                CP.ExStyle = CP.ExStyle | 0x02000000; // WS_EX_COMPOSITED
-                return CP;
-            }
-        }
-
         private int titleHeight = 30;
 
         public int TitleHeight

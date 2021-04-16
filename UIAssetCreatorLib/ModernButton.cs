@@ -17,6 +17,7 @@ namespace UIAssetsCreator.Assets
     {
         public ModernButton() : base()
         {
+            BorderWidth = 0;
             BorderRadius = 40;
             Text = "ModernButton";
         }
@@ -102,6 +103,27 @@ namespace UIAssetsCreator.Assets
             }
 
             path.Dispose();
+        }
+
+        public override void OnEnter(object sender, EventArgs e)
+        {
+            base.OnEnter(sender, e);
+            Refresh();
+        }
+        public override void OnLeave(object sender, EventArgs e)
+        {
+            base.OnLeave(sender, e);
+            Refresh();
+        }
+        public override void OnDown(object sender, EventArgs e)
+        {
+            base.OnDown(sender, e);
+            Refresh();
+        }
+        public override void OnUp(object sender, EventArgs e)
+        {
+            base.OnUp(sender, e);
+            Refresh();
         }
     }
 }

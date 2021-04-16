@@ -54,8 +54,10 @@ namespace UIAssetsCreator.Assets
             get { return text; }
             set
             {
+                if (text == value)
+                    return;
                 text = value;
-                Refresh();
+                RefreshType("text");
             }
         }
         public Font TextFont
@@ -63,6 +65,8 @@ namespace UIAssetsCreator.Assets
             get { return fnt; }
             set
             {
+                if (fnt == value)
+                    return;
                 fnt = value;
 
             }
@@ -72,9 +76,10 @@ namespace UIAssetsCreator.Assets
             get { return borderRadius; }
             set
             {
+                if (borderRadius == value)
+                    return;
                 borderRadius = value;
                 Refresh();
-
             }
         }
         public int BorderWidth
@@ -82,6 +87,8 @@ namespace UIAssetsCreator.Assets
             get { return borderWidth; }
             set
             {
+                if (borderRadius == value)
+                    return;
                 borderWidth = value;
                 Refresh();
 
@@ -92,6 +99,8 @@ namespace UIAssetsCreator.Assets
             get { return borderColor; }
             set
             {
+                if (borderColor == value)
+                    return;
                 borderColor = value;
                 Refresh();
 
@@ -102,6 +111,8 @@ namespace UIAssetsCreator.Assets
             get { return fillColor; }
             set
             {
+                if (fillColor == value)
+                    return;
                 fillColor = value;
                 Refresh();
             }
@@ -111,6 +122,8 @@ namespace UIAssetsCreator.Assets
             get { return fontColor; }
             set
             {
+                if (fontColor == value)
+                    return;
                 fontColor = value;
                 Refresh();
             }
@@ -120,6 +133,8 @@ namespace UIAssetsCreator.Assets
             get { return textAlign; }
             set
             {
+                if (textAlign == value)
+                    return;
                 textAlign = value;
                 Refresh();
             }
@@ -129,6 +144,8 @@ namespace UIAssetsCreator.Assets
             get { return textPadding; }
             set
             {
+                if (textPadding == value)
+                    return;
                 textPadding = value;
                 Refresh();
             }
@@ -302,22 +319,18 @@ namespace UIAssetsCreator.Assets
         public virtual void OnEnter(object sender, EventArgs e)
         {
             isHover = true;
-            RefreshAll();
         }
         public virtual void OnLeave(object sender, EventArgs e)
         {
             isHover = false;
-            RefreshAll();
         }
         public virtual void OnDown(object sender, EventArgs e)
         {
             isDown = true;
-            RefreshAll();
         }
         public virtual void OnUp(object sender, EventArgs e)
         {
             isDown = false;
-            RefreshAll();
         }
         public virtual void OnClick(object sender, EventArgs e)
         {
@@ -325,6 +338,10 @@ namespace UIAssetsCreator.Assets
         }
 
 
+        public virtual void RefreshType(string type = "design")
+        {
+
+        }
         public void Refresh(object sender, EventArgs e)
         {
             RefreshAll();
