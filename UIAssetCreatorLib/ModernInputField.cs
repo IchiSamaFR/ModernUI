@@ -169,6 +169,15 @@ namespace UIAssetsCreator.Assets
             }
         }
 
+        public override Font TextFont
+        {
+            get { return textBox.Font; }
+            set
+            {
+                textBox.Font = value;
+            }
+        }
+
         public ModernInputField() : base()
         {
             if (textBox == null)
@@ -231,26 +240,32 @@ namespace UIAssetsCreator.Assets
 
             var path = new GraphicsPath();
 
-            SizeF stringSizeF = e.Graphics.MeasureString(TitleText, TextFont);
-            Size stringSize = new Size((int)Math.Ceiling(stringSizeF.Width), (int)Math.Ceiling(stringSizeF.Height));
+            SizeF stringSizeF = e.Graphics.MeasureString(TitleText, TitleFont);
+            Size stringSize = new Size((int)Math.Ceiling(stringSizeF.Width) + 6, (int)Math.Ceiling(stringSizeF.Height));
             int halfStringSize = stringSize.Height / 2;
+            int halfStringSizeErr;
+
+            if (stringSize.Height > 0)
+                halfStringSizeErr = stringSize.Height / 2 - 3;
+            else
+                halfStringSizeErr = 0;
 
             if (ParentEnabled)
             {
-                CreateRecObject(e, path, 0, halfStringSize, Size.Width, Size.Height - halfStringSize, FillColor);
+                CreateRecObject(e, path, 0, halfStringSizeErr, Size.Width, Size.Height - halfStringSizeErr, FillColor);
 
                 if (BorderWidth > 0)
                 {
-                    CreateRecObject(e, path, BorderWidth, BorderWidth + halfStringSize, Size.Width - BorderWidth * 2, Size.Height - BorderWidth * 2 - halfStringSize, foc);
+                    CreateRecObject(e, path, BorderWidth, BorderWidth + halfStringSizeErr, Size.Width - BorderWidth * 2, Size.Height - BorderWidth * 2 - halfStringSizeErr, foc);
                 }
             }
             else
             {
-                CreateRecObject(e, path, 0, halfStringSize, Size.Width, Size.Height - halfStringSize, Color.FromArgb(ModernConfiguration.AlphaValue, FillColor.R, FillColor.G, FillColor.B));
+                CreateRecObject(e, path, 0, halfStringSizeErr, Size.Width, Size.Height - halfStringSizeErr, Color.FromArgb(ModernConfiguration.AlphaValue, FillColor.R, FillColor.G, FillColor.B));
 
                 if (BorderWidth > 0)
                 {
-                    CreateRecObject(e, path, BorderWidth, BorderWidth + halfStringSize, Size.Width - BorderWidth * 2, Size.Height - BorderWidth * 2 - halfStringSize, foc);
+                    CreateRecObject(e, path, BorderWidth, BorderWidth + halfStringSizeErr, Size.Width - BorderWidth * 2, Size.Height - BorderWidth * 2 - halfStringSizeErr, foc);
                 }
             }
             using (Brush aBrush = new SolidBrush(FontColor))
@@ -262,7 +277,7 @@ namespace UIAssetsCreator.Assets
                 {
                     format.Alignment = StringAlignment.Center;
                     Rectangle rec = new Rectangle(BorderRadius / 2 + TitlePadding,
-                                                  ClientRectangle.Y,
+                                                  ClientRectangle.Y - 3,
                                                   stringSize.Width,
                                                   halfStringSize * 2);
                     GraphicsPath newPath = new GraphicsPath();
@@ -274,7 +289,7 @@ namespace UIAssetsCreator.Assets
                 {
                     format.Alignment = StringAlignment.Center;
                     Rectangle rec = new Rectangle(ClientRectangle.Width - (BorderRadius / 2 + TitlePadding + stringSize.Width),
-                                                  ClientRectangle.Y,
+                                                  ClientRectangle.Y - 3,
                                                   stringSize.Width,
                                                   halfStringSize * 2);
                     GraphicsPath newPath = new GraphicsPath();
@@ -286,7 +301,7 @@ namespace UIAssetsCreator.Assets
                 {
                     format.Alignment = StringAlignment.Center;
                     Rectangle rec = new Rectangle((ClientRectangle.Width - stringSize.Width) / 2,
-                                                  ClientRectangle.Y,
+                                                  ClientRectangle.Y - 3,
                                                   ClientRectangle.Width - (ClientRectangle.Width - stringSize.Width),
                                                   halfStringSize * 2);
                     GraphicsPath newPath = new GraphicsPath();
@@ -299,7 +314,7 @@ namespace UIAssetsCreator.Assets
                     TitleAlign = "left";
                     format.Alignment = StringAlignment.Center;
                     Rectangle rec = new Rectangle(BorderRadius / 2 + TitlePadding,
-                                                  ClientRectangle.Y,
+                                                  ClientRectangle.Y - 3,
                                                   stringSize.Width,
                                                   halfStringSize * 2);
                     GraphicsPath newPath = new GraphicsPath();
@@ -311,23 +326,37 @@ namespace UIAssetsCreator.Assets
             path.Dispose();
 
 
+            SizeF _stringSizeF = e.Graphics.MeasureString(Text, TextFont);
+            Size _stringSize = new Size((int)Math.Ceiling(_stringSizeF.Width) + 6, (int)Math.Ceiling(_stringSizeF.Height));
             textBox.Multiline = multiline;
             textBox.BackColor = FillColor;
+            textBox.AutoSize = false;
             //textBox.BorderStyle = BorderStyle.FixedSingle;
             textBox.BorderStyle = BorderStyle.None;
             if (multiline)
             {
-                textBox.Size = new Size(ClientRectangle.Width - (BorderRadius + TextPadding * 2),
-                                        ClientRectangle.Height - (BorderRadius + TextPadding * 2));
-                textBox.Location = new Point(BorderRadius / 2 + TextPadding,
-                                             BorderRadius / 2 + TextPadding + stringSize.Height / 3);
+                textBox.Size = new Size(ClientRectangle.Width - (BorderWidth + TitlePadding * 2),
+                                        ClientRectangle.Height - (BorderWidth + TitlePadding * 2));
+                textBox.Location = new Point(BorderWidth / 2 + TitlePadding,
+                                             BorderWidth / 2 + TitlePadding + stringSize.Height / 3);
             }
             else
             {
-                textBox.Size = new Size(ClientRectangle.Width - (BorderRadius + TextPadding * 2),
-                                        ClientRectangle.Height - (BorderRadius + TextPadding * 2 + stringSize.Height / 3));
-                textBox.Location = new Point(BorderRadius / 2 + TextPadding,
-                                             ClientRectangle.Height / 2 - textBox.Size.Height / 2 + stringSize.Height / 3);
+                if(titleText == "")
+                {
+                    textBox.Size = new Size(ClientRectangle.Width - BorderWidth - TextPadding * 2,
+                                            _stringSize.Height);
+                    textBox.Location = new Point(BorderWidth / 2 + TextPadding,
+                                                 ClientRectangle.Height / 2 - textBox.Size.Height / 2);
+                }
+                else
+                {
+                    textBox.Size = new Size(ClientRectangle.Width - BorderWidth - TextPadding * 2,
+                                            _stringSize.Height);
+                    textBox.Location = new Point(BorderWidth / 2 + TextPadding,
+                                                 ClientRectangle.Height / 2 - textBox.Size.Height / 3);
+                }
+
             }
             if (ParentEnabled)
                 textBox.Enabled = true;
@@ -370,7 +399,7 @@ namespace UIAssetsCreator.Assets
                 e.Handled = true;
             }
 
-            if (specialAccepted && !char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            if (!specialAccepted && !char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }

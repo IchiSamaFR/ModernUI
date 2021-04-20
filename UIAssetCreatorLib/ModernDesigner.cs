@@ -60,7 +60,7 @@ namespace UIAssetsCreator.Assets
                 RefreshType("text");
             }
         }
-        public Font TextFont
+        public virtual Font TextFont
         {
             get { return fnt; }
             set
