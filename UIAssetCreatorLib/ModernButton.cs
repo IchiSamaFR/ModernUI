@@ -15,30 +15,82 @@ namespace UIAssetsCreator.Assets
 {
     public class ModernButton : ModernDesigner
     {
+        bool readOnly = false;
+        Color hoverColor = new Color();
+        Color downColor = new Color();
+        Color hoverFont = new Color();
+        Color downFont = new Color();
+        public bool ReadOnly
+        {
+            get { return readOnly; }
+            set
+            {
+                readOnly = value;
+            }
+        }
+        public Color HoverColor
+        {
+            get { return hoverColor; }
+            set
+            {
+                hoverColor = value;
+            }
+        }
+        public Color DownColor
+        {
+            get { return downColor; }
+            set
+            {
+                downColor = value;
+            }
+        }
+        public Color HoverFont
+        {
+            get { return hoverFont; }
+            set
+            {
+                hoverFont = value;
+            }
+        }
+        public Color DownFont
+        {
+            get { return downFont; }
+            set
+            {
+                downFont = value;
+            }
+        }
+
         public ModernButton() : base()
         {
             BorderWidth = 0;
             BorderRadius = 40;
-            Text = "ModernButton";
+            HoverColor = Color.Transparent;
+            DownColor = Color.Transparent;
+            HoverFont = Color.Transparent;
+            DownFont = Color.Transparent;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             var path = new GraphicsPath();
 
-            if (Enabled && ParentEnabled)
+            if (Enabled && ParentEnabled && !ReadOnly)
             {
                 if (isDown)
                 {
-                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, Color.FromArgb(Tool.Clamp((int)(FillColor.R * 1.05f), 0, 255),
+                    Color toSet = DownColor == Color.Transparent ? Color.FromArgb(Tool.Clamp((int)(FillColor.R * 1.05f), 0, 255),
                                                                                         Tool.Clamp((int)(FillColor.G * 1.05f), 0, 255),
-                                                                                        Tool.Clamp((int)(FillColor.B * 1.05f), 0, 255)));
+                                                                                        Tool.Clamp((int)(FillColor.B * 1.05f), 0, 255)) : DownColor;
+                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, toSet);
                 }
                 else if (isHover)
                 {
-                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, Color.FromArgb(Tool.Clamp((int)(FillColor.R * 1.1f), 0, 255),
+                    Color toSet = hoverColor == Color.Transparent ? Color.FromArgb(Tool.Clamp((int)(FillColor.R * 1.1f), 0, 255),
                                                                                         Tool.Clamp((int)(FillColor.G * 1.1f), 0, 255),
-                                                                                        Tool.Clamp((int)(FillColor.B * 1.1f), 0, 255)));
+                                                                                        Tool.Clamp((int)(FillColor.B * 1.1f), 0, 255)) : hoverColor;
+                    
+                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, toSet);
                 }
                 else
                 {
@@ -47,6 +99,15 @@ namespace UIAssetsCreator.Assets
                 if (BorderWidth > 0)
                 {
                     CreateRecObject(e, path, BorderWidth, BorderWidth, Size.Width - BorderWidth * 2, Size.Height - BorderWidth * 2, BorderColor);
+                }
+            }
+            else if(ReadOnly)
+            {
+                CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, FillColor);
+
+                if (BorderWidth > 0)
+                {
+                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, BorderColor);
                 }
             }
             else
@@ -58,7 +119,19 @@ namespace UIAssetsCreator.Assets
                     CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, Color.FromArgb(ModernConfiguration.AlphaValue, BorderColor.R, BorderColor.G, BorderColor.B));
                 }
             }
-            using (Brush aBrush = new SolidBrush(FontColor))
+
+
+
+            Color color = new Color();
+
+            if (isDown && downFont != null)
+                color = downFont == Color.Transparent ? FontColor : downFont;
+            else if (isHover && hoverFont != null)
+                color = hoverFont == Color.Transparent ? FontColor : hoverFont;
+            else
+                color = FontColor;
+
+            using (Brush aBrush = new SolidBrush(color))
             {
                 StringFormat format = new StringFormat();
                 format.LineAlignment = StringAlignment.Center;
@@ -102,6 +175,14 @@ namespace UIAssetsCreator.Assets
                 }
             }
 
+            if(ImageBack != null)
+            {
+                if (ImageSize.Width > Width) ImageSize = new Size(Width, ImageSize.Height);
+                if (ImageSize.Height > Height) ImageSize = new Size(ImageSize.Height, Height);
+
+                e.Graphics.DrawImage(ImageBack, (Width - ImageSize.Width) / 2, (Height - ImageSize.Height) / 2, ImageSize.Width, ImageSize.Height);
+            }
+
             path.Dispose();
         }
 
@@ -124,6 +205,12 @@ namespace UIAssetsCreator.Assets
         {
             base.OnUp(sender, e);
             Refresh();
+        }
+
+        public override void OnClick(object sender, EventArgs e)
+        {
+            if (ReadOnly || !Enabled || !ParentEnabled) return;
+            base.OnClick(sender, e);
         }
     }
 }

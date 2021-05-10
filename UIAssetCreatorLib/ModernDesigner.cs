@@ -35,6 +35,8 @@ namespace UIAssetsCreator.Assets
         private string textAlign = "center";
         private int textPadding = 10;
         private Color fontColor;
+        private Image img;
+        private Size imgSize;
 
         public new bool Enabled
         {
@@ -180,6 +182,29 @@ namespace UIAssetsCreator.Assets
                 return enabled;
             }
         }
+        public Image ImageBack
+        {
+            get { return img; }
+            set
+            {
+                if (img == value)
+                    return;
+                img = value;
+                Refresh();
+            }
+        }
+        public Size ImageSize
+        {
+            get { return imgSize; }
+            set
+            {
+                if (imgSize == value)
+                    return;
+                imgSize = value;
+                Refresh();
+            }
+        }
+
 
         public bool isHover = false;
         public bool isDown = false;
@@ -203,7 +228,6 @@ namespace UIAssetsCreator.Assets
             fontColor = ModernConfiguration.titlefont_color;
             Size = new Size(150, 40);
             enabled = true;
-            text = "Modern Design";
         }
         public void CreateRecObject(PaintEventArgs e, GraphicsPath path, int x, int y, int width, int height, Color color)
         {

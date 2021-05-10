@@ -16,13 +16,11 @@ namespace UIAssetsCreator.Assets
     public class ModernRadioButton : ModernDesigner
     {
         private Font fnt = new Font("Sans Serif", 10);
-        private int titleHeight = 30;
         private int dotSize = 10;
         private Color dotColor;
         private Color dotActiveColor;
         private Color fillColor;
         private Color fillActiveColor;
-        private int titlePadding = 4;
         private Color fontColor;
         private Size mainSize;
         private bool multipleSelection = false;
@@ -72,28 +70,6 @@ namespace UIAssetsCreator.Assets
                 if (fillActiveColor == value)
                     return;
                 fillActiveColor = value;
-                Refresh();
-            }
-        }
-        public int TitlePadding
-        {
-            get { return titlePadding; }
-            set
-            {
-                if (titlePadding == value)
-                    return;
-                titlePadding = value;
-                Refresh();
-            }
-        }
-        public int TitleHeight
-        {
-            get { return titleHeight; }
-            set
-            {
-                if (titleHeight == value)
-                    return;
-                titleHeight = value;
                 Refresh();
             }
         }
@@ -158,7 +134,6 @@ namespace UIAssetsCreator.Assets
             fontColor = ModernConfiguration.font_color;
             mainSize = new Size(16, 16);
             Enabled = true;
-            Text = "ModernRadioButton";
         }
 
 
@@ -205,12 +180,12 @@ namespace UIAssetsCreator.Assets
                 using (Brush aBrush = new SolidBrush(fontColor))
                 {
                     StringFormat format = new StringFormat();
-                    format.Alignment = StringAlignment.Center;
+                    format.Alignment = StringAlignment.Near;
 
                     SizeF stringSizeF = e.Graphics.MeasureString(Text, TextFont);
                     Size stringSize = new Size((int)Math.Ceiling(stringSizeF.Width), (int)Math.Ceiling(stringSizeF.Height));
 
-                    Rectangle rec = new Rectangle(titlePadding + mainSize.Width,
+                    Rectangle rec = new Rectangle(TextPadding + mainSize.Width,
                                                     mainSize.Height - stringSize.Height,
                                                     stringSize.Width,
                                                     stringSize.Height);
@@ -233,16 +208,6 @@ namespace UIAssetsCreator.Assets
 
         public override void OnClick(object sender, EventArgs e)
         {
-            ClickResult();
-        }
-        public override void RefreshType(string type = "design")
-        {
-            toRefresh = "";
-            Refresh();
-        }
-
-        private void ClickResult()
-        {
             if (!Enabled || !ParentEnabled)
                 return;
             if (isHover)
@@ -250,15 +215,23 @@ namespace UIAssetsCreator.Assets
                 if (multipleSelection)
                 {
                     isChecked = !isChecked;
+                    CheckedChangedEvent(sender, e);
                 }
                 else if (!isChecked)
                 {
                     isChecked = true;
                     CheckValues();
+                    CheckedChangedEvent(sender, e);
                 }
             }
             RefreshAll();
         }
+        public override void RefreshType(string type = "design")
+        {
+            toRefresh = "";
+            Refresh();
+        }
+        
         private void CheckValues()
         {
             if (!isChecked || Parent == null || Parent.Controls.Count <= 0)
@@ -274,6 +247,14 @@ namespace UIAssetsCreator.Assets
                     }
                 }
             }
+        }
+
+        
+        public event EventHandler<EventArgs> CheckedChanged;
+        protected virtual void CheckedChangedEvent(object sender, EventArgs e)
+        {
+            var handler = CheckedChanged; // We do not want racing conditions!
+            handler?.Invoke(sender, e);
         }
     }
 }

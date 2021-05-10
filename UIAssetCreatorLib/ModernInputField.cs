@@ -30,6 +30,8 @@ namespace UIAssetsCreator.Assets
         private bool numAccepted = true;
         private bool mod = false;
 
+
+        [System.ComponentModel.Category("Modern I")]
         public string TitleText
         {
             get { return titleText; }
@@ -152,6 +154,7 @@ namespace UIAssetsCreator.Assets
                     CheckInputText();
             }
         }
+        [System.ComponentModel.Category("Comportement")]
         public bool ReadOnly
         {
             get { return textBox.ReadOnly; }
@@ -326,7 +329,7 @@ namespace UIAssetsCreator.Assets
             path.Dispose();
 
 
-            SizeF _stringSizeF = e.Graphics.MeasureString(Text, TextFont);
+            SizeF _stringSizeF = e.Graphics.MeasureString("test", TextFont);
             Size _stringSize = new Size((int)Math.Ceiling(_stringSizeF.Width) + 6, (int)Math.Ceiling(_stringSizeF.Height));
             textBox.Multiline = multiline;
             textBox.BackColor = FillColor;
@@ -386,6 +389,7 @@ namespace UIAssetsCreator.Assets
         }
         public void CheckInputText(object sender, KeyPressEventArgs e)
         {
+
             if (!alphaAccepted && char.IsLetter(e.KeyChar))
             {
                 e.Handled = true;
@@ -399,7 +403,7 @@ namespace UIAssetsCreator.Assets
                 e.Handled = true;
             }
 
-            if (!specialAccepted && !char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar))
+            if (!specialAccepted && !char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '.')
             {
                 e.Handled = true;
             }

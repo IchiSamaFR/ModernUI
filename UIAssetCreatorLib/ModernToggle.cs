@@ -116,7 +116,6 @@ namespace UIAssetsCreator.Assets
             fillActiveColor = ModernConfiguration.main_color;
             mainSize = new Size(36, 20);
             AutoSize = true;
-            Text = "ModernToggle";
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -179,8 +178,17 @@ namespace UIAssetsCreator.Assets
             if (isHover)
             {
                 isChecked = !isChecked;
+                CheckedChangedEvent(sender, e);
             }
             RefreshAll();
+        }
+
+
+        public event EventHandler<EventArgs> CheckedChanged;
+        protected virtual void CheckedChangedEvent(object sender, EventArgs e)
+        {
+            var handler = CheckedChanged; // We do not want racing conditions!
+            handler?.Invoke(sender, e);
         }
     }
 }
