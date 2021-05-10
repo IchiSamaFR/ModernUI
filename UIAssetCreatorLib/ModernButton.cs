@@ -18,8 +18,8 @@ namespace UIAssetsCreator.Assets
         bool readOnly = false;
         Color hoverColor = new Color();
         Color downColor = new Color();
-        Color hoverFont = new Color();
-        Color downFont = new Color();
+        Color hoverFontColor = new Color();
+        Color downFontColor = new Color();
         public bool ReadOnly
         {
             get { return readOnly; }
@@ -44,20 +44,20 @@ namespace UIAssetsCreator.Assets
                 downColor = value;
             }
         }
-        public Color HoverFont
+        public Color HoverFontColor
         {
-            get { return hoverFont; }
+            get { return hoverFontColor; }
             set
             {
-                hoverFont = value;
+                hoverFontColor = value;
             }
         }
-        public Color DownFont
+        public Color DownFontColor
         {
-            get { return downFont; }
+            get { return downFontColor; }
             set
             {
-                downFont = value;
+                downFontColor = value;
             }
         }
 
@@ -67,8 +67,8 @@ namespace UIAssetsCreator.Assets
             BorderRadius = 40;
             HoverColor = Color.Transparent;
             DownColor = Color.Transparent;
-            HoverFont = Color.Transparent;
-            DownFont = Color.Transparent;
+            HoverFontColor = Color.Transparent;
+            DownFontColor = Color.Transparent;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -124,10 +124,10 @@ namespace UIAssetsCreator.Assets
 
             Color color = new Color();
 
-            if (isDown && downFont != null)
-                color = downFont == Color.Transparent ? FontColor : downFont;
-            else if (isHover && hoverFont != null)
-                color = hoverFont == Color.Transparent ? FontColor : hoverFont;
+            if (isDown && DownFontColor != null)
+                color = DownFontColor == Color.Transparent ? FontColor : DownFontColor;
+            else if (isHover && HoverFontColor != null)
+                color = HoverFontColor == Color.Transparent ? FontColor : HoverFontColor;
             else
                 color = FontColor;
 
