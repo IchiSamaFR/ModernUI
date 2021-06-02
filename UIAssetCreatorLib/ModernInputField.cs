@@ -169,6 +169,7 @@ namespace UIAssetsCreator.Assets
                 {
                     textBox.Cursor = Cursors.IBeam;
                 }
+                SetStyle(ControlStyles.Selectable, value);
             }
         }
 
@@ -382,9 +383,15 @@ namespace UIAssetsCreator.Assets
             }
             if (!specialAccepted)
             {
-                Regex rgx = new Regex("[^a-zA-Z0-9 .]");
+                Regex rgx = new Regex("[^a-zA-Z0-9] .-+");
                 Text = rgx.Replace(Text, "");
             }
+            if (!specialAccepted && !numAccepted)
+            {
+                Regex rgx = new Regex(".-+");
+                Text = rgx.Replace(Text, "");
+            }
+
             mod = false;
         }
         public void CheckInputText(object sender, KeyPressEventArgs e)

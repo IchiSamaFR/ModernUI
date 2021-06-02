@@ -43,9 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModernButton.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ModernButton.cs" />
     <Compile Include="ModernConfiguration.cs" />
     <Compile Include="ModernDesigner.cs">
       <SubType>UserControl</SubType>
@@ -56,12 +54,8 @@
     <Compile Include="ModernPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ModernRadioButton.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModernToggle.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="ModernRadioButton.cs" />
+    <Compile Include="ModernToggle.cs" />
     <Compile Include="Tool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
