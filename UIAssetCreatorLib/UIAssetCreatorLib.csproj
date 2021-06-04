@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'UILib|AnyCPU'">
+    <OutputPath>bin\UILib\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,9 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModernButton.cs" />
+    <Compile Include="ModernButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ModernConfiguration.cs" />
     <Compile Include="ModernDesigner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModernFlowLayout.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ModernInputField.cs">
@@ -54,8 +62,12 @@
     <Compile Include="ModernPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ModernRadioButton.cs" />
-    <Compile Include="ModernToggle.cs" />
+    <Compile Include="ModernRadioButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModernToggle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Tool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

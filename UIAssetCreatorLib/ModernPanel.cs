@@ -8,10 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using System.ComponentModel.Design;
 
-using UIAssetsCreator;
 
 namespace UIAssetsCreator.Assets
 {
