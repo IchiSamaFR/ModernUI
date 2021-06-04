@@ -31,6 +31,7 @@ namespace UIAssetsCreator.Assets
         private int borderRadius = 20;
         private int borderWidth = 2;
         private Color borderColor;
+        private Color borderShadeColor;
         private Color fillColor;
         private Color fillShadeColor;
         private string textAlign = "center";
@@ -111,6 +112,19 @@ namespace UIAssetsCreator.Assets
                 if (borderColor == value)
                     return;
                 borderColor = value;
+                Refresh();
+
+            }
+        }
+        [System.ComponentModel.Category("Modern Designer")]
+        public Color BorderShadeColor
+        {
+            get { return borderShadeColor; }
+            set
+            {
+                if (borderShadeColor == value)
+                    return;
+                borderShadeColor = value;
                 Refresh();
 
             }
@@ -312,21 +326,63 @@ namespace UIAssetsCreator.Assets
             }
             path.CloseFigure();
 
+            
+            Brush myBrush = new SolidBrush(color);
+
+            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            e.Graphics.FillPath(myBrush, path);
+        }
+        public void CreateRecObject(PaintEventArgs e, GraphicsPath path, int x, int y, int width, int height, Color color, Color colorGradient, string gradiant)
+        {
+            if (height <= 1 || width <= 1)
+            {
+                return;
+            }
+
+            int borderR = GetBorderMax(borderRadius, width, height);
+            RectangleF circleRect = new RectangleF(x, y, borderR, borderR);
+            RectangleF circleRect2 = new RectangleF(x + width - (borderR + 1), y, borderR, borderR);
+            RectangleF circleRect3 = new RectangleF(x + width - (borderR + 1), y + height - (borderR + 1), borderR, borderR);
+            RectangleF circleRect4 = new RectangleF(x, y + height - (borderR + 1), borderR, borderR);
+
+            if (borderR > 0)
+            {
+                path.AddArc(circleRect, 180, 90);
+                path.AddArc(circleRect2, 270, 90);
+                path.AddArc(circleRect3, 0, 90);
+                path.AddArc(circleRect4, 90, 90);
+            }
+            else
+            {
+                path.AddLine(new Point(x, y),
+                             new Point(width - x, y));
+
+                path.AddLine(new Point(width, y),
+                             new Point(width, height - y));
+
+                path.AddLine(new Point(width - x + 1, height),
+                             new Point(x, height));
+
+                path.AddLine(new Point(x, height - y),
+                             new Point(x, y));
+            }
+            path.CloseFigure();
+
 
 
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
             if (gradient == "radial")
             {
                 PathGradientBrush myBrush = new PathGradientBrush(path);
-                myBrush.CenterColor = fillColor;
-                Color[] colors = { fillShadeColor };
+                myBrush.CenterColor = color;
+                Color[] colors = { colorGradient };
                 myBrush.SurroundColors = colors;
 
                 e.Graphics.FillPath(myBrush, path);
             }
             else if (gradient == "linear")
             {
-                LinearGradientBrush myBrush = new LinearGradientBrush(new PointF(x, y), new PointF(width, height), fillColor, fillShadeColor);
+                LinearGradientBrush myBrush = new LinearGradientBrush(new PointF(0, 0), new PointF(Width, Height), color, colorGradient);
 
                 e.Graphics.FillPath(myBrush, path);
             }

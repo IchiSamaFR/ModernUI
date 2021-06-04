@@ -76,10 +76,12 @@ namespace UIAssetsCreator.Assets
             DownColor = Color.Transparent;
             HoverFontColor = Color.Transparent;
             DownFontColor = Color.Transparent;
+
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            BorderShadeColor = Color.Transparent;
             var path = new GraphicsPath();
 
             if (Enabled && ParentEnabled && !ReadOnly)
@@ -89,41 +91,49 @@ namespace UIAssetsCreator.Assets
                     Color toSet = DownColor == Color.Transparent ? Color.FromArgb(Tool.Clamp((int)(FillColor.R * 1.05f), 0, 255),
                                                                                         Tool.Clamp((int)(FillColor.G * 1.05f), 0, 255),
                                                                                         Tool.Clamp((int)(FillColor.B * 1.05f), 0, 255)) : DownColor;
-                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, toSet);
+                    Color toSetShade = DownColor == Color.Transparent ? Color.FromArgb(Tool.Clamp((int)(FillShadeColor.R * 1.05f), 0, 255),
+                                                                                        Tool.Clamp((int)(FillShadeColor.G * 1.05f), 0, 255),
+                                                                                        Tool.Clamp((int)(FillShadeColor.B * 1.05f), 0, 255)) : DownColor;
+                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, toSet, toSet, Gradient);
                 }
                 else if (isHover)
                 {
                     Color toSet = hoverColor == Color.Transparent ? Color.FromArgb(Tool.Clamp((int)(FillColor.R * 1.1f), 0, 255),
                                                                                         Tool.Clamp((int)(FillColor.G * 1.1f), 0, 255),
                                                                                         Tool.Clamp((int)(FillColor.B * 1.1f), 0, 255)) : hoverColor;
-                    
-                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, toSet);
+                    Color toSetShade = hoverColor == Color.Transparent ? Color.FromArgb(Tool.Clamp((int)(FillShadeColor.R * 1.05f), 0, 255),
+                                                                                        Tool.Clamp((int)(FillShadeColor.G * 1.05f), 0, 255),
+                                                                                        Tool.Clamp((int)(FillShadeColor.B * 1.05f), 0, 255)) : hoverColor;
+
+                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, toSet, toSetShade, Gradient);
                 }
                 else
                 {
-                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, FillColor);
+                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, FillColor, FillShadeColor, Gradient);
                 }
                 if (BorderWidth > 0)
                 {
-                    CreateRecObject(e, path, BorderWidth, BorderWidth, Size.Width - BorderWidth * 2, Size.Height - BorderWidth * 2, BorderColor);
+                    CreateRecObject(e, path, BorderWidth, BorderWidth, Size.Width - BorderWidth * 2, Size.Height - BorderWidth * 2, BorderColor, BorderShadeColor, Gradient);
                 }
             }
             else if(ReadOnly)
             {
-                CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, FillColor);
+                CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, FillColor, FillShadeColor, Gradient);
 
                 if (BorderWidth > 0)
                 {
-                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, BorderColor);
+                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, BorderColor, BorderShadeColor, Gradient);
                 }
             }
             else
             {
-                CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, Color.FromArgb(ModernConfiguration.AlphaValue, FillColor.R, FillColor.G, FillColor.B));
+                CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, Color.FromArgb(ModernConfiguration.AlphaValue, FillColor.R, FillColor.G, FillColor.B), 
+                                Color.FromArgb(ModernConfiguration.AlphaValue, FillColor.R, FillColor.G, FillColor.B), Gradient);
 
                 if (BorderWidth > 0)
                 {
-                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, Color.FromArgb(ModernConfiguration.AlphaValue, BorderColor.R, BorderColor.G, BorderColor.B));
+                    CreateRecObject(e, path, 0, 0, Size.Width, Size.Height, Color.FromArgb(ModernConfiguration.AlphaValue, BorderColor.R, BorderColor.G, BorderColor.B),
+                                Color.FromArgb(ModernConfiguration.AlphaValue, BorderShadeColor.R, BorderShadeColor.G, BorderShadeColor.B), Gradient);
                 }
             }
 
