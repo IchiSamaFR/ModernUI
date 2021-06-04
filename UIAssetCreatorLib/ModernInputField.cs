@@ -154,7 +154,10 @@ namespace UIAssetsCreator.Assets
         [System.ComponentModel.Category("Modern Input Field")]
         public override string Text
         {
-            get { return textBox.Text; }
+            get
+            {
+                return textBox.Text;
+            }
             set
             {
                 if (textBox.Text == value)
@@ -411,16 +414,21 @@ namespace UIAssetsCreator.Assets
             {
                 e.Handled = true;
             }
-            if (!numAccepted && char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            if (!numAccepted && char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != '+' && e.KeyChar != '-')
             {
                 e.Handled = true;
             }
-            else if (numAccepted && !specialAccepted && (e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            else if (numAccepted && !specialAccepted && e.KeyChar == '.' && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
             }
 
-            if (!specialAccepted && !char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '.')
+            if (!numAccepted && !specialAccepted && (e.KeyChar != '.' || e.KeyChar != '+' || e.KeyChar != '-'))
+            {
+                e.Handled = true;
+            }
+
+            if (!specialAccepted && !char.IsDigit(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != '+' && e.KeyChar != '-')
             {
                 e.Handled = true;
             }
