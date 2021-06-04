@@ -32,11 +32,13 @@ namespace UIAssetsCreator.Assets
         private int borderWidth = 2;
         private Color borderColor;
         private Color fillColor;
+        private Color fillShadeColor;
         private string textAlign = "center";
         private int textPadding = 10;
         private Color fontColor;
         private Image img;
         private Size imgSize;
+        private string gradient = "none";
 
         public new bool Enabled
         {
@@ -51,7 +53,7 @@ namespace UIAssetsCreator.Assets
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Bindable(true)]
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public override string Text
         {
             get { return text; }
@@ -63,7 +65,7 @@ namespace UIAssetsCreator.Assets
                 RefreshType("text");
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public virtual Font TextFont
         {
             get { return fnt; }
@@ -75,7 +77,7 @@ namespace UIAssetsCreator.Assets
 
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public int BorderRadius
         {
             get { return borderRadius; }
@@ -87,7 +89,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public int BorderWidth
         {
             get { return borderWidth; }
@@ -100,7 +102,7 @@ namespace UIAssetsCreator.Assets
 
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public Color BorderColor
         {
             get { return borderColor; }
@@ -113,7 +115,7 @@ namespace UIAssetsCreator.Assets
 
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public Color FillColor
         {
             get { return fillColor; }
@@ -125,7 +127,19 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
+        public Color FillShadeColor
+        {
+            get { return fillShadeColor; }
+            set
+            {
+                if (fillShadeColor == value)
+                    return;
+                fillShadeColor = value;
+                Refresh();
+            }
+        }
+        [System.ComponentModel.Category("Modern Designer")]
         public Color FontColor
         {
             get { return fontColor; }
@@ -137,7 +151,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public string TextAlign
         {
             get { return textAlign; }
@@ -149,7 +163,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public int TextPadding
         {
             get { return textPadding; }
@@ -161,7 +175,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public bool ParentEnabled
         {
             get
@@ -192,7 +206,7 @@ namespace UIAssetsCreator.Assets
                 return enabled;
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public Image ImageBack
         {
             get { return img; }
@@ -204,7 +218,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
-        [System.ComponentModel.Category("Modern Desginer")]
+        [System.ComponentModel.Category("Modern Designer")]
         public Size ImageSize
         {
             get { return imgSize; }
@@ -213,6 +227,26 @@ namespace UIAssetsCreator.Assets
                 if (imgSize == value)
                     return;
                 imgSize = value;
+                Refresh();
+            }
+        }
+        [System.ComponentModel.Category("Modern Designer")]
+        public string Gradient
+        {
+            get { return gradient; }
+            set
+            {
+                if (value.ToLower() == "rad" || value.ToLower() == "radial")
+                    gradient = "radial";
+                else if (value.ToLower() == "lin" || value.ToLower() == "linear")
+                    gradient = "linear";
+                else
+                    gradient = "none";
+
+                if (gradient == value)
+                    return;
+                else
+                    gradient = value;
                 Refresh();
             }
         }
@@ -236,6 +270,7 @@ namespace UIAssetsCreator.Assets
 
             borderColor = ModernConfiguration.secondary_color;
             fillColor = ModernConfiguration.main_color;
+            fillShadeColor = ModernConfiguration.main_color;
             BackColor = Color.Transparent;
             fontColor = ModernConfiguration.titlefont_color;
             Size = new Size(150, 40);
@@ -277,12 +312,29 @@ namespace UIAssetsCreator.Assets
             }
             path.CloseFigure();
 
-            Brush _fillColor = new SolidBrush(color);
-            //Pen _borderColor = new Pen(borderColor);
+
 
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-            e.Graphics.FillPath(_fillColor, path);
-            //e.Graphics.DrawPath(_borderColor, path);
+            if (gradient == "radial")
+            {
+                PathGradientBrush myBrush = new PathGradientBrush(path);
+                myBrush.CenterColor = fillColor;
+                Color[] colors = { fillShadeColor };
+                myBrush.SurroundColors = colors;
+
+                e.Graphics.FillPath(myBrush, path);
+            }
+            else if (gradient == "linear")
+            {
+                LinearGradientBrush myBrush = new LinearGradientBrush(new PointF(x, y), new PointF(width, height), fillColor, fillShadeColor);
+
+                e.Graphics.FillPath(myBrush, path);
+            }
+            else
+            {
+                Brush myBrush = new SolidBrush(color);
+                e.Graphics.FillPath(myBrush, path);
+            }
         }
         public void CreateRecObject_DownBorder(PaintEventArgs e, GraphicsPath path, int x, int y, int width, int height, Color color)
         {
