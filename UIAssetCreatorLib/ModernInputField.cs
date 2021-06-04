@@ -31,7 +31,7 @@ namespace UIAssetsCreator.Assets
         private bool mod = false;
 
 
-        [System.ComponentModel.Category("Modern I")]
+        [System.ComponentModel.Category("Modern Input Field")]
         public string TitleText
         {
             get { return titleText; }
@@ -43,6 +43,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public Color TitleColor
         {
             get { return titleColor; }
@@ -54,6 +55,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public Color FocusColorBorder
         {
             get { return focusColorBorder; }
@@ -65,6 +67,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public int TitlePadding
         {
             get { return titlePadding; }
@@ -76,6 +79,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public Font TitleFont
         {
             get { return titleFont; }
@@ -87,6 +91,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public string TitleAlign
         {
             get { return titleAlign; }
@@ -98,6 +103,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public bool Multiline
         {
             get { return multiline; }
@@ -109,6 +115,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public bool AlphaAccepted
         {
             get { return alphaAccepted; }
@@ -120,6 +127,7 @@ namespace UIAssetsCreator.Assets
                 CheckInputText();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public bool SpecialAccepted
         {
             get { return specialAccepted; }
@@ -131,6 +139,7 @@ namespace UIAssetsCreator.Assets
                 CheckInputText();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public bool NumAccepted
         {
             get { return numAccepted; }
@@ -142,6 +151,7 @@ namespace UIAssetsCreator.Assets
                 CheckInputText();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
         public override string Text
         {
             get { return textBox.Text; }

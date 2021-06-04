@@ -18,6 +18,7 @@ namespace UIAssetsCreator.Assets
     {
         private int titleHeight = 30;
 
+        [System.ComponentModel.Category("Modern Panel")]
         public int TitleHeight
         {
             get { return titleHeight; }

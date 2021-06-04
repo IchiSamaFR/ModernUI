@@ -28,6 +28,7 @@ namespace UIAssetsCreator.Assets
         private string toRefresh = "";
         private bool maximizeSize = false;
 
+        [System.ComponentModel.Category("Modern Radio Button")]
         public int DotSize
         {
             get { return dotSize; }
@@ -40,6 +41,7 @@ namespace UIAssetsCreator.Assets
 
             }
         }
+        [System.ComponentModel.Category("Modern Radio Button")]
         public Color DotColor
         {
             get { return dotColor; }
@@ -51,6 +53,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Radio Button")]
         public Color DotActiveColor
         {
             get { return dotActiveColor; }
@@ -62,6 +65,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Radio Button")]
         public Color FillActiveColor
         {
             get { return fillActiveColor; }
@@ -73,6 +77,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Radio Button")]
         public bool Checked
         {
             get { return isChecked; }
@@ -85,6 +90,7 @@ namespace UIAssetsCreator.Assets
                 CheckValues();
             }
         }
+        [System.ComponentModel.Category("Modern Radio Button")]
         public bool MultipleSelection
         {
             get { return multipleSelection; }
@@ -96,6 +102,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Radio Button")]
         public string SelectionGroup
         {
             get { return selectionGroup; }
@@ -107,6 +114,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Radio Button")]
         public bool MaximizeSize
         {
             get { return maximizeSize; }

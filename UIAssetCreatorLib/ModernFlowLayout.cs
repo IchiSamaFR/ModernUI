@@ -20,6 +20,7 @@ namespace UIAssetsCreator.Assets
         private bool topToDown = true;
         private bool leftToRight = false;
 
+        [Description(""), Category("Modern Flow Layout")]
         public Point ColumnsRows
         {
             get { return colRows; }
@@ -29,6 +30,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [Description(""), Category("Modern Flow Layout")]
         public bool TopToDown
         {
             get { return topToDown; }
@@ -39,6 +41,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [Description(""), Category("Modern Flow Layout")]
         public bool LeftToRight
         {
             get { return leftToRight; }
@@ -62,6 +65,7 @@ namespace UIAssetsCreator.Assets
         protected override void OnPaint(PaintEventArgs e)
         {
             RefreshChilds();
+            PerformLayout();
         }
         
         protected override void OnControlAdded(ControlEventArgs e)

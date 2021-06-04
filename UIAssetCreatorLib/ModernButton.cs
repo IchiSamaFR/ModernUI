@@ -20,6 +20,9 @@ namespace UIAssetsCreator.Assets
         Color downColor = new Color();
         Color hoverFontColor = new Color();
         Color downFontColor = new Color();
+
+
+        [System.ComponentModel.Category("Modern Button")]
         public bool ReadOnly
         {
             get { return readOnly; }
@@ -28,6 +31,7 @@ namespace UIAssetsCreator.Assets
                 readOnly = value;
             }
         }
+        [System.ComponentModel.Category("Modern Button")]
         public Color HoverColor
         {
             get { return hoverColor; }
@@ -36,6 +40,7 @@ namespace UIAssetsCreator.Assets
                 hoverColor = value;
             }
         }
+        [System.ComponentModel.Category("Modern Button")]
         public Color DownColor
         {
             get { return downColor; }
@@ -44,6 +49,7 @@ namespace UIAssetsCreator.Assets
                 downColor = value;
             }
         }
+        [System.ComponentModel.Category("Modern Button")]
         public Color HoverFontColor
         {
             get { return hoverFontColor; }
@@ -52,6 +58,7 @@ namespace UIAssetsCreator.Assets
                 hoverFontColor = value;
             }
         }
+        [System.ComponentModel.Category("Modern Button")]
         public Color DownFontColor
         {
             get { return downFontColor; }

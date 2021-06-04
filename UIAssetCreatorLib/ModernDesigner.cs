@@ -51,6 +51,7 @@ namespace UIAssetsCreator.Assets
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Bindable(true)]
+        [System.ComponentModel.Category("Modern Desginer")]
         public override string Text
         {
             get { return text; }
@@ -62,6 +63,7 @@ namespace UIAssetsCreator.Assets
                 RefreshType("text");
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public virtual Font TextFont
         {
             get { return fnt; }
@@ -73,6 +75,7 @@ namespace UIAssetsCreator.Assets
 
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public int BorderRadius
         {
             get { return borderRadius; }
@@ -84,6 +87,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public int BorderWidth
         {
             get { return borderWidth; }
@@ -96,6 +100,7 @@ namespace UIAssetsCreator.Assets
 
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public Color BorderColor
         {
             get { return borderColor; }
@@ -108,6 +113,7 @@ namespace UIAssetsCreator.Assets
 
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public Color FillColor
         {
             get { return fillColor; }
@@ -119,6 +125,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public Color FontColor
         {
             get { return fontColor; }
@@ -130,6 +137,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public string TextAlign
         {
             get { return textAlign; }
@@ -141,6 +149,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public int TextPadding
         {
             get { return textPadding; }
@@ -152,6 +161,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public bool ParentEnabled
         {
             get
@@ -182,6 +192,7 @@ namespace UIAssetsCreator.Assets
                 return enabled;
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public Image ImageBack
         {
             get { return img; }
@@ -193,6 +204,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Desginer")]
         public Size ImageSize
         {
             get { return imgSize; }

@@ -25,6 +25,7 @@ namespace UIAssetsCreator.Assets
         private int titlePadding = 4;
         private Size mainSize;
 
+        [System.ComponentModel.Category("Modern Toggle")]
         public int DotSize
         {
             get { return dotSize; }
@@ -37,6 +38,7 @@ namespace UIAssetsCreator.Assets
 
             }
         }
+        [System.ComponentModel.Category("Modern Toggle")]
         public Color DotColor
         {
             get { return dotColor; }
@@ -48,6 +50,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Toggle")]
         public Color DotActiveColor
         {
             get { return dotActiveColor; }
@@ -59,6 +62,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Toggle")]
         public Color FillActiveColor
         {
             get { return fillActiveColor; }
@@ -70,6 +74,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Toggle")]
         public int TitlePadding
         {
             get { return titlePadding; }
@@ -81,6 +86,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Toggle")]
         public int TitleHeight
         {
             get { return titleHeight; }
@@ -92,6 +98,7 @@ namespace UIAssetsCreator.Assets
                 Refresh();
             }
         }
+        [System.ComponentModel.Category("Modern Toggle")]
         public bool Checked
         {
             get { return isChecked; }
