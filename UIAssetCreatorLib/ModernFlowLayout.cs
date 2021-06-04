@@ -105,6 +105,10 @@ namespace UIAssetsCreator.Assets
                     Controls[i].Visible = false;
                     continue;
                 }
+                else
+                {
+                    Controls[i].Visible = true;
+                }
 
                 if (index > 0)
                 {
