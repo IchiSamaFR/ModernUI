@@ -167,6 +167,11 @@ namespace UIAssetsCreator.Assets
                     CheckInputText();
             }
         }
+        [System.ComponentModel.Category("Modern Input Field")]
+        public bool IsFocused
+        {
+            get { return textBox.Focused; }
+        }
         [System.ComponentModel.Category("Comportement")]
         public bool ReadOnly
         {
