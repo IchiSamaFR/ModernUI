@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using System.ComponentModel.Design;
 
 
-namespace UIAssetsCreator.Assets
+namespace ModernUI.Assets
 {
     [Designer("System.Windows.Forms.Design.ParentControlDesigner, System.Design", typeof(IDesigner))]
     public class ModernPanel : ModernDesigner

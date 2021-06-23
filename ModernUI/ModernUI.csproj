@@ -7,8 +7,8 @@
     <ProjectGuid>{410FAE58-A949-4C8F-9B3A-85A9C86F64DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UIAssetCreatorLib</RootNamespace>
-    <AssemblyName>UIAssetCreatorLib</AssemblyName>
+    <RootNamespace>ModernUI</RootNamespace>
+    <AssemblyName>ModernUI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

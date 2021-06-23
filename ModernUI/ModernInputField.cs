@@ -10,9 +10,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using UIAssetsCreator;
+using ModernUI;
 
-namespace UIAssetsCreator.Assets
+namespace ModernUI.Assets
 {
     public class ModernInputField : ModernDesigner
     {
