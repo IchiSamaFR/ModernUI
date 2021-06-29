@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -200,6 +201,11 @@ namespace ModernUI.Assets
             }
         }
 
+        TextBox unfoc = new TextBox();
+
+        [DllImport("user32.dll")]
+        static extern bool HideCaret(System.IntPtr hWnd);
+
         public ModernInputField() : base()
         {
             if (textBox == null)
@@ -238,20 +244,25 @@ namespace ModernUI.Assets
         }
         private void FocusChanged(object sender, EventArgs e)
         {
-            if (ReadOnly)
+            if(Focused || IsFocused)
             {
-                Parent.Focus();
-                return;
+                if (ReadOnly)
+                {
+                    HideCaret(textBox.Handle);
+                }
+
+                if (Focused)
+                {
+                    textBox.Focus();
+                }
             }
 
-            if(Focused)
-                textBox.Focus();
             Refresh();
         }
         protected override void OnPaint(PaintEventArgs e)
         {
             Color foc = BorderColor;
-            if ((Focused || textBox.Focused) && ParentEnabled)
+            if ((Focused || IsFocused) && ParentEnabled && !ReadOnly)
             {
                 foc = FocusColorBorder;
             }

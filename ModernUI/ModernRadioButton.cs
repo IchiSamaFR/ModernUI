@@ -198,9 +198,9 @@ namespace ModernUI.Assets
                                                     stringSize.Width,
                                                     stringSize.Height);
                     e.Graphics.DrawString(Text, TextFont, aBrush, rec, format);
-                    if (maximizeSize && rec.X + rec.Width < Parent.Width - 24)
+                    if (maximizeSize && rec.X + rec.Width < Parent.Width - 26)
                     {
-                        Size = new Size(Parent.Width - 24, mainSize.Height + 1);
+                        Size = new Size(Parent.Width - 26, mainSize.Height + 1);
                     }
                     else
                     {

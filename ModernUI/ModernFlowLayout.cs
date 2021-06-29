@@ -19,18 +19,28 @@ namespace ModernUI.Assets
         private Point colRows = new Point(0, 2);
         private bool topToDown = true;
         private bool leftToRight = false;
-
-        [Description(""), Category("Modern Flow Layout")]
-        public Point ColumnsRows
+        
+        [System.ComponentModel.Category("Modern Flow Layout")]
+        public int Columns
         {
-            get { return colRows; }
+            get { return colRows.X; }
             set
             {
-                colRows = value;
+                colRows.X = value;
                 Refresh();
             }
         }
-        [Description(""), Category("Modern Flow Layout")]
+        [System.ComponentModel.Category("Modern Flow Layout")]
+        public int Rows
+        {
+            get { return colRows.Y; }
+            set
+            {
+                colRows.Y = value;
+                Refresh();
+            }
+        }
+        [System.ComponentModel.Category("Modern Flow Layout")]
         public bool TopToDown
         {
             get { return topToDown; }
@@ -41,7 +51,7 @@ namespace ModernUI.Assets
                 Refresh();
             }
         }
-        [Description(""), Category("Modern Flow Layout")]
+        [System.ComponentModel.Category("Modern Flow Layout")]
         public bool LeftToRight
         {
             get { return leftToRight; }
@@ -55,17 +65,21 @@ namespace ModernUI.Assets
 
         public ModernFlowLayout() : base()
         {
+            DoubleBuffered = false;
             AutoScroll = true;
             BorderWidth = 0;
             Size = new Size(150, 200);
             BorderColor = FillColor;
             FillColor = Color.White;
+            Margin = new Padding(5, 5, 5, 5);
+            Padding = new Padding(5, 5, 5, 5);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             RefreshChilds();
             PerformLayout();
+            base.OnPaint(e);
         }
         
         protected override void OnControlAdded(ControlEventArgs e)
@@ -77,37 +91,48 @@ namespace ModernUI.Assets
         {
             int actualRow = 0;
             int actualCol = 0;
-            int index = 0;
-
-            for (int i = Controls.Count - 1; i >= 0; i--)
+            
+            for (int index = 0; index < Controls.Count; index++)
             {
-                Control item = Controls[i];
+                Control item = Controls[index];
 
                 if (TopToDown)
                 {
-                    if (actualCol == colRows.X)
+                    if(colRows.X == 0)
+                    {
+                        actualCol = 0;
+                    }
+                    else if (actualCol == colRows.X)
                     {
                         actualCol = 0;
                         actualRow++;
                     }
+                    else if (actualRow == colRows.Y)
+                    {
+                        actualRow = 0;
+                    }
                 }
                 else
                 {
-                    if (actualRow == colRows.Y)
+                    if (actualRow == colRows.Y && colRows.Y != 0)
                     {
                         actualRow = 0;
                         actualCol++;
+                    }
+                    else if (actualCol == colRows.X)
+                    {
+                        actualCol = 0;
                     }
                 }
                 if ((topToDown && actualRow >= colRows.Y && colRows.Y != 0 && colRows.X != 0)
                     || (!topToDown && colRows.Y != 0 && actualCol >= colRows.X && colRows.X != 0))
                 {
-                    Controls[i].Visible = false;
+                    Controls[index].Visible = false;
                     continue;
                 }
                 else
                 {
-                    Controls[i].Visible = true;
+                    Controls[index].Visible = true;
                 }
 
                 if (index > 0)
@@ -117,9 +142,9 @@ namespace ModernUI.Assets
                 }
                 else
                 {
-                    item.Location = new Point();
+                    item.Location = new Point(-HorizontalScroll.Value, -VerticalScroll.Value);
                 }
-                if (TopToDown)
+                if (colRows.X != 0)
                 {
                     actualCol++;
                 }
@@ -127,7 +152,6 @@ namespace ModernUI.Assets
                 {
                     actualRow++;
                 }
-                index++;
             }
         }
     }
